@@ -1,0 +1,61 @@
+<div search-panel></div>
+<div>
+    <div ng-show="loading">
+        <br />
+        <progressbar max="max" value="dynamic" class="progress progress-info progress-striped active"><span style="color:black; white-space:nowrap;text-"><b>{{loadingMessage}}</b></span></progressbar>
+    </div>
+    <div>
+        <!-- The search panel -->
+
+        <div class="error-messages" ng-show="!loading">
+            <accordion-group ng-repeat="error in errors">
+                <accordion-heading class="no-padding">
+                    <div class="span12 message pull-left">
+                        <a><span class="alert alert-info input-block-level"><strong>[{{error.channel}}] - {{error.errorCode}}</strong> {{errorCodes[error.errorCode] !== undefined ? errorCodes[error.errorCode] : error.description}} </span></a>
+                    </div>
+                    <div class="clearfix"></div>
+                </accordion-heading>
+                <div class="control-group">
+                    {{error.details}}
+                </div>
+            </accordion-group>
+            
+            <div class="center message emptyPanel" ng-hide="errors.length">
+                <span ng-show="message" class="alert alert-info" >No errors found <span ng-show="merchantId">for merchant {{merchantId}}</span>, everything is running smoothly</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+    <h3>Please confirm your change</h3>
+    </div>
+    <div class="modal-body control-group" ng-class="{error : $$errorMessage}">
+    <div class="controls">
+    <input type="text" ng-model="selected.comment" placeholder="Please enter a comment" />
+
+    <span class="help-inline">{{$$errorMessage}}</span>
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">Validate</button>
+    <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
+
+<script type="text/ng-template" id="loadingModal.html">
+    <div class="modal-header">
+    <h3 class="modal-title">Loading merchant {{merchantId}}</h3>
+    </div>
+    <div class="modal-body">
+    <ul>
+    <li ng-repeat="item in items">
+    <a ng-click="selected.item = item">{{ currentAsset.merchantId }}</a>
+    </li>
+    </ul>
+    Selected: <b>{{ selected.item }}</b>
+    </div>
+</script>

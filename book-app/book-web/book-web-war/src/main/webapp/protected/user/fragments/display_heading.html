@@ -1,0 +1,109 @@
+<div class="row small-section-title" ng-show="currentMerchant.merchantId" style="padding-bottom: 0px;">
+    <h4 class="pull-left">Headings</h4>
+    <button ng-hide="showTimeline || !writePermission" ng-show="writePermission" class="btn pull-right  btn-mini" ng-click="addContent('Headings')">Add</button>
+</div>
+<hr ng-show="currentMerchant.merchantId" style="margin-top: -10px;margin-top: -1px;margin-top: 0px;margin-bottom: 5px;"/>
+
+<accordion-group ng-repeat="contentElement in currentMerchant.content.headingContent" is-open="contentElement.$$open || contentElement.$$error" ng-show="contentElement.$$display && contentElement.heading[0].headingType != 'PRIMARY'">
+    <accordion-heading>
+        <div ng-class="{
+                    'alert-error': contentElement.$$error, 'alert-error- accordion - heading': contentElement.$$error}">
+            Headings ({{contentElement.metaData.sourceSystem}})
+            <span ng-show="contentElement.metaData.replacedDate.date" tooltip-html-unsafe="The element have been replaced/removed on {{contentElement.metaData.replacedDate.date}}" tooltip-placement="bottom" >
+                <span class="label label-info">Info</span>
+            </span>
+
+            <a class="accordion-arrow-open {{contentElement.$$open}} pull-right"><span>{{contentElement.$$open}}</span></a>
+        </div>
+    </accordion-heading>
+
+
+
+    <div class="alert alert-error" ng-show="contentElement.$$errorMessage">
+        <span>{{contentElement.$$errorMessage}}</span>
+    </div>
+    <div ng-show="contentElement.metaData.sourceSystem !== 'CAMS' || !contentElement.$$editMode" ng-repeat="heading in contentElement.heading">
+        <hr ng-show="$index !== 0" style="margin-top: -10px;margin-top: -1px;margin-top: 0px;margin-bottom: 5px;"/>
+        <table  class="table table-condensed "  style="margin-bottom: 0px;">
+            <tr>
+                <td class="span3">Type : </td>
+                <td>
+                    {{headingTypeValue[heading.headingType]}}
+                    <span tooltip-html-unsafe="Verified By : {{heading.verifiedBy}}&lt;br /&gt; Verify Date : {{heading.dateLastVerified.date}}&lt;br /&gt; Source : {{heading.source}}" >
+                        <em class="icon-question-sign" ></em>
+                    </span>
+                    <span class="help-inline">{{heading.$$error.headingId}}</span></td>
+            </tr>
+            <tr>
+                <td>Value : </td>
+                <td>
+                    <span ng-hide="heading.$$enName">{{heading.headingId}}</span>
+                    <span ng-show="heading.$$enName" class="label">{{heading.$$enName}}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="content-element {{contentElement.$$edit ? 'edit_mode' : ''}}" ng-repeat="heading in contentElement.heading" ng-show="contentElement.$$editMode">
+        <div class="various-controls" >
+            <div class="pull-right">
+                <a class="btn icon" ng-click="removeHeading(contentElement, heading)" ng-show="contentElement.$$editMode">
+                    <em class="icon-trash icon-remove-element" ></em>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="control-group"  ng-class="{
+                    error : heading.$$error.headingType
+                }">
+            <label class="control-label">Type : </label>
+            <div class="controls">
+                <select ng-options="key as value for (key, value) in headingTypeValue" ng-model="heading.headingType" ng-disabled="!contentElement.$$editMode" >
+                    <option value="">Please select</option>
+                </select>
+                <span class="help-inline">{{heading.$$error.headingType}}</span>
+            </div>
+        </div>
+        <div class="control-group"  ng-class="{
+                    error : heading.$$error.headingId
+                }">
+            <label class="control-label">Value : </label>
+            <div class="controls">
+                {{ heading.$$selected}}<BR/>
+                <input type="text" ng-model="heading.headingId" typeahead="headingItem.headingId as headingItem.enNameWithHeadingId for headingItem in headings | filter:$viewValue | limitTo:8"
+                       class="form-control">
+                <span tooltip-html-unsafe="Verified By : {{heading.verifiedBy}}&lt;br /&gt; Verify Date : {{heading.dateLastVerified.date}}&lt;br /&gt; Source : {{heading.source}}" >
+                    <em class="icon-question-sign" ></em>
+                </span>
+                <span class="help-inline">{{heading.$$error.headingId}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="content-element" ng-show="contentElement.$$editMode">
+        <form ng-submit="addHeading(currentMerchant.content, contentElement.heading)">
+            <div class="control-group"  ng-class="{
+                        error : newHeading.error.headingType
+                    }">
+                <label class="control-label">Type : </label>
+                <div class="controls">
+                    <select ng-options="key as value for (key, value) in headingTypeValue" ng-model="newHeading.headingType">
+                        <option value="">Please select</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary ">Add</button>
+                    <span class="help-inline">{{newHeading.error.headingType}}</span>
+                </div>
+            </div>
+            <div class="control-group"  ng-class="{
+                        error : newHeading.error.headingId
+                    }">
+                <label class="control-label">Value : </label>
+                <div class="controls">
+                    <input type="text" ng-model="newHeading.headingId" typeahead="heading.headingId as heading.enNameWithHeadingId for heading in headings | filter:$viewValue | limitTo:8"
+                           class="form-control">
+                    <span class="help-inline">{{newHeading.error.headingId}}</span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div more-detail ng-hide="contentElement.$$editMode"></div>
+    <div more-edit-detail ng-show="contentElement.$$editMode"></div>
+</accordion-group>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+        <title>CAMS · Administration</title>
+        <meta name="description" content="This is the admistation admistration application for YPG Content and Assets Management Service" />
+        <meta name="author" content="Mickael Dubois @ ypg" />
+        <link href="/cams-ui/css/cams.css" rel="stylesheet" />
+        <link rel="SHORTCUT ICON" type="image/x-icon" href="/cams-ui/ico/favicon.ico" />
+        <link rel="icon" type="image/png" href="/cams-ui/ico/favicon.png" />
+
+    </head>
+
+    <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="#"> <img src="/cams-ui/img/logo_en_black.png" /></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="span5">
+                <div class="hero-unit">
+                    <h1>Go to the user page</h1>
+                    <p><br /></p>
+                    <p class="center">Please <a href="/cams-ui/protected/user/">click here</a> to see the magic happened<p>
+                </div>
+            </div>
+            <div class="span5" style="margin-left: 150px;">
+                <div class="hero-unit">
+                    <h1>Go to the admin page</h1>
+                    <p><br /></p>
+                    <p class="center">Please <a href="/cams-ui/protected/admin/">click here</a> to get to the back of the magie<p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <hr />
+            <footer>
+                <p>© 2014 Yellow Pages Group All Rights Reserved (<span id="appVersion"></span> -> <span id="contractVersion"></span>)</p>
+            </footer>
+        </div>
+        <script src="/cams-ui/js/lib/jquery.min.js"></script>
+        <script src="/cams-ui/js/lib/bootstrap.min.js"></script>
+
+        <script>
+
+            //Set the version to the bottom page
+            $.get("/cams-ui/properties?property=cams.ui.version", function (data) {
+                $('#appVersion').html($(data).find("property").text());
+            });
+            $.get("/cams-ui/properties?property=car.contracts.version", function (data) {
+                $('#contractVersion').html($(data).find("property").text());
+            });
+        </script>
+    </body>
+</html>

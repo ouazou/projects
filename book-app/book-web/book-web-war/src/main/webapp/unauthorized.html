@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+        <title>CAMS · Administration</title>
+        <meta name="description" content="This is the admistation admistration application for YPG Content and Assets Management Service" />
+        <meta name="author" content="Mickael Dubois @ ypg" />
+        <link href="/cams-ui/css/cams.css" rel="stylesheet" />
+        <link rel="SHORTCUT ICON" type="image/x-icon" href="/cams-ui/ico/favicon.ico" />
+        <link rel="icon" type="image/png" href="/cams-ui/ico/favicon.png" />
+
+    </head>
+
+    <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="#"> <img src="/cams-ui/img/logo_en_black.png" /></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="span7">
+                <div class="hero-unit"><h1>Content &amp; Asset Management System</h1></div>
+            </div>
+            <div class="span4">
+                <div class="hero-login">
+                    <form class="form-signin" action="/cams-ui/protected/j_spring_security_check " method="post">
+                        <h2 class="form-signin-heading">Please sign in</h2>
+
+                        <div class="control-group error">
+                            <div class="controls">
+                                <span class="help-inline">Wrong login/password combination</span>
+                                <input type="text" name="login" class="input-block-level" placeholder="Login" ng-model="login" required/>
+                                <input type="password" name="password" class="input-block-level" placeholder="Password" ng-model="password" required/>
+                            </div>
+                        </div>
+                        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+                    </form>
+                </div> <!-- /container -->
+            </div>
+        </div>
+        <div class="container">
+            <hr />
+            <footer>
+                <p>© <span class="year"></span> Yellow Pages Group All Rights Reserved</p>
+            </footer>
+        </div>
+        <script src="/cams-ui/js/lib/jquery.min.js"></script>
+        <script src="/cams-ui/js/lib/bootstrap.min.js"></script>
+        <script>
+            $(document).ready( function () {
+                var copyrightYear = new Date().getFullYear();
+                $('.year').text( copyrightYear );
+                
+                $('input').keydown( function () {
+                    $('.error').removeClass('error');
+                    $('.help-inline').remove();
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,104 @@
+<div class="row small-section-title" ng-show="currentMerchant.merchantId" style="padding-bottom: 0px;">
+    <h4 class="pull-left">Directories</h4>
+    <button ng-hide="showTimeline || !writePermission || currentMerchant.content.directoryContent.length > 0" ng-show="writePermission" class="btn pull-right  btn-mini" ng-click="addContent('Directories')">Add</button>
+</div>
+<hr ng-show="currentMerchant.merchantId" style="margin-top: -10px;margin-top: -1px;margin-top: 0px;margin-bottom: 5px;"/>
+
+<accordion-group ng-repeat="contentElement in currentMerchant.content.directoryContent" is-open="contentElement.$$open || contentElement.$$error" ng-show="contentElement.$$display">
+    <accordion-heading>
+        <div ng-class="{
+                    'alert-error': contentElement.$$error, 'alert-error- accordion - heading': contentElement.$$error}">
+            Directories ({{contentElement.metaData.sourceSystem}})
+            <span ng-show="contentElement.metaData.replacedDate.date" tooltip-html-unsafe="The element have been replaced/removed on {{contentElement.metaData.replacedDate.date}}" tooltip-placement="bottom" >
+                <span class="label label-info">Info</span>
+            </span>
+
+            <a class="accordion-arrow-open {{contentElement.$$open}} pull-right"><span>{{contentElement.$$open}}</span></a>
+        </div>
+    </accordion-heading>
+
+    <div class="alert alert-error" ng-show="contentElement.$$errorMessage">
+        <span>{{contentElement.$$errorMessage}}</span>
+    </div>
+    <div ng-show="contentElement.metaData.sourceSystem !== 'CAMS' || !contentElement.$$editMode" ng-repeat="directory in contentElement.directory">
+        <hr ng-show="$index !== 0" style="margin-top: -10px;margin-top: -1px;margin-top: 0px;margin-bottom: 5px;"/>
+        <table  class="table table-condensed "  style="margin-bottom: 0px;">
+            <tr>
+                <td class="span3">Directory Type : </td>
+                <td>
+                    {{directoryTypeValue[directory.type]}}
+                    <span tooltip-html-unsafe="Verified By : {{directory.verifiedBy}}&lt;br /&gt; Verify Date : {{directory.dateLastVerified.date}}&lt;br /&gt; Source : {{directory.source}}" >
+                        <em class="icon-question-sign" ></em>
+                    </span>
+                    <span class="help-inline">{{directory.$$error.code}}</span></td>
+            </tr>
+            <tr>
+                <td>Directory value : </td>
+                <td>
+                    <span ng-hide="directory.$$name">{{directory.code}}</span>
+                    <span ng-show="directory.$$name" class="label">{{directory.$$name}}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="content-element {{contentElement.$$edit ? 'edit_mode' : ''}}" ng-repeat="directory in contentElement.directory" ng-show="contentElement.$$editMode">
+        <div class="various-controls" >
+            <div class="pull-right">
+                <a class="btn icon" ng-click="removeDirectory(contentElement, directory)" ng-show="contentElement.$$editMode">
+                    <em class="icon-trash icon-remove-element" ></em>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="control-group"  ng-class="{
+                    error : newDirectory.$$error.type
+                }">
+            <label class="control-label">Directory Type</label>
+            <div class="controls">
+                <select ng-options="key as value for (key, value) in directoryTypeValue" ng-model="directory.type" ng-disabled="!contentElement.$$editMode" >
+                    <option value="">Please select</option>
+                </select>
+                <span class="help-inline">{{directory.$$error.type}}</span>
+            </div>
+        </div>
+        <div class="control-group"  ng-class="{
+                    error : newDirectory.$$error.code
+                }">
+            <label class="control-label">Directory code</label>
+            <div class="controls">
+                <input type="text" ng-model="directory.code" ng-disabled="!contentElement.$$editMode"/>
+                <span tooltip-html-unsafe="Verified By : {{directory.verifiedBy}}&lt;br /&gt; Verify Date : {{directory.dateLastVerified.date}}&lt;br /&gt; Source : {{directory.source}}" >
+                    <em class="icon-question-sign" ></em>
+                </span>
+                <span class="help-inline">{{directory.$$error.code}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="content-element" ng-show="contentElement.$$editMode && contentElement.directory.length < 1">
+        <form ng-submit="addDirectory(currentMerchant.content, contentElement.directory)">
+            <div class="control-group"  ng-class="{
+                        error: newDirectory.error.type
+                    }">
+                <label class="control-label">Directory Type</label>
+                <div class="controls">
+                    <select ng-options="key as value for (key, value) in directoryTypeValue" ng-model="newDirectory.type">
+                        <option value="">Please select</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary ">Add</button>
+                    <span class="help-inline">{{newDirectory.error.type}}</span>
+                </div>
+            </div>
+            <div class="control-group"  ng-class="{
+                        error: newDirectory.error.code
+                    }">
+                <label class="control-label">Directory code</label>
+                <div class="controls">
+                    <input type="text" ng-model="newDirectory.code"/>
+                    <span class="help-inline">{{newDirectory.error.code}}</span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div more-detail ng-hide="contentElement.$$editMode"></div>
+    <div more-edit-detail ng-show="contentElement.$$editMode"></div>
+</accordion-group>

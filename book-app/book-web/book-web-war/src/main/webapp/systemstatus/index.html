@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+    <title>Distribution System Status</title>
+    <meta name="description" content="This is the system status page for YPG Content Publishing Systems" />
+    <meta name="author" content="Mina Dawoud @ yp" />
+    <link href="../css/cams.css" rel="stylesheet" />
+    <link href="../css/systemstatus.css" rel="stylesheet" />
+</head>
+
+<body>
+<div class="container mainContent">
+    <!--    <div class="merchantInfo">
+            <h2 id="PublishingStatus">Online Merchants</h2>
+            <p>The total number of online merchants at <a href="http://yp.ca">yp.ca</a> is
+                <strong><span class="numberOfMerchants">&nbsp;</span></strong>
+            </p>
+        </div>
+        <p>&nbsp;</p> -->
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="http://yp.ca"> <img src="../img/logo_en_black.png" /></a>
+            </div>
+        </div>
+    </div>
+    <div id="container" data-hires="true">
+        <div id="main" data-hires="true">
+            <div id="content" class="box">
+
+                <noscript>
+                    &lt;div class="disabledscriptHeader"&gt;JavaScript is required&lt;/div&gt;
+                    &lt;div class="disabledscriptText"&gt;To use the System Status page, enable JavaScript in your browser and try again.&lt;/div&gt;
+                </noscript>
+
+                <div id="platter">
+                    <div role="key">
+                        <h2><span id="nbe_status_text">Daily Pipeline Status as of</span><span class="currentTime"></span><span id="nbe_date_post"></span></h2>
+                    </div>
+                    <div role="main">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td style="height: 20px;">
+                                    <span title="DOWN" class="nbe offline"></span>
+                                    <p class="matrix_p" alt="New Backend">New Backend</p>
+                                    <p class="affected_p nbeHint hide">All the data will be updated on <a href="http://yp.ca">yp.ca</a> every day.</p>
+                                    <p class="affected_p nbeDownHint">The New Backend System is under Maintenance. It will be back online soon.</p>
+                                </td>
+                                <td style="height: 20px;">&nbsp;</td>
+                                <td style="height: 20px;">&nbsp;</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="key">
+                        <h2><span id="nrt_status_text">NRT Pipeline Status as of</span><span class="currentTime"></span><span id="key_date_post"></span></h2>
+                    </div>
+                    <div role="main">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td style="height: 20px;">
+                                    <span title="DOWN" class="dc-osp offline"></span>
+                                    <p class="matrix_p" alt="Business/Merchant Information">Business/Merchant Information</p>
+                                    <p class="affected_p ospHint hide">The Business Name & All Merchant Address fields (related to OMM - Golden Record) will be updated on <a href="http://yp.ca">yp.ca</a> in less than 15 minutes.</p>
+                                    <p class="affected_p ospDownHint">The NRT Distribution System is under Maintenance. It will be back online soon.</p>
+                                </td>
+                                <td style="height: 20px;">
+                                    <span title="DOWN" class="dc-osp offline"></span>
+                                    <p class="matrix_p" alt="Business Hours">Business Hours</p>
+                                    <p class="affected_p ospHint hide">The business hour will be updated on <a href="http://yp.ca">yp.ca</a> in less than 15 minutes.</p>
+                                    <p class="affected_p ospDownHint">The NRT Distribution System is under Maintenance. It will be back online soon.</p>
+                                </td>
+                                <td style="height: 20px;">
+                                    <span title="DOWN" class="dc-osp offline"></span>
+                                    <p class="matrix_p" alt="Business URLs">Business URLs & Email Addresses</p>
+                                    <p class="affected_p ospHint hide">e.g. Main Web Sites, Other Web Sites, Landing Page URLs and Email Addresses. These fields  will be updated on <a href="http://yp.ca">yp.ca</a> in less than 15 minutes.</p>
+                                    <p class="affected_p ospDownHint">The NRT Distribution System is under Maintenance. It will be back online soon.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height: 20px;">
+                                    <span title="DOWN" class="dc-osp offline"></span>
+                                    <p class="matrix_p" alt="Social URLs">Social URLs</p>
+                                    <p class="affected_p ospHint hide">e.g. Facebook, Twitter, YouTube and Other Social URLs. These fields  will be updated on <a href="http://yp.ca">yp.ca</a> in less than 15 minutes.</p>
+                                    <p class="affected_p ospDownHint">The NRT Distribution System is under Maintenance. It will be back online soon.</p>
+                                </td>
+                                <td style="height: 20px;">
+                                    <span title="DOWN" class="dc-osp offline"></span>
+                                    <p class="matrix_p" alt="Business Details">Business Details</p>
+                                    <p class="affected_p ospHint hide">e.g. Brands Carried, Languages Spoken, Methods of Payment, Products and/or Services, etc. These fields  will be updated on <a href="http://yp.ca">yp.ca</a> in less than 15 minutes.</p>
+                                    <p class="affected_p ospDownHint">The NRT Distribution System is under Maintenance. It will be back online soon.</p>
+                                </td>
+                                <td style="height: 20px;">
+                                    <span title="DOWN" class="dc-osp offline"></span>
+                                    <p class="matrix_p" alt="Business Description">Business Description</p>
+                                    <p class="affected_p ospHint hide">The description a.k.a Teaser Text will appear on YP profile and will be used on other online properties. This field will be updated on <a href="http://yp.ca">yp.ca</a> in less than 15 minutes.</p>
+                                    <p class="affected_p ospDownHint">The NRT Distribution System is under Maintenance. It will be back online soon.</p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="contact_us">
+                        <span id="not_listed">If you are experiencing an issue not listed here, <a href="mailto:content-support@ypg.com?subject=CAR%20Distribution%20System%20Status&amp;cc=christophe.papandreou@pj.ca" rel="nofollow">contact CAR Support Team</a>.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container ypgFooter">
+        <hr />
+        <footer>
+            <p>Copyright &#169;<span class="year"></span> <a href="http://corporate.yp.ca/" title="corporate.yp.ca">Yellow Pages Digital &amp; Media Solutions Limited</a></p>
+        </footer>
+    </div>
+</div>
+
+<script src="../js/lib/jquery.min.js"></script>
+<script>
+    Date.prototype.timeNow = function () {
+        return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
+    };
+    $(document).ready( function () {
+        var date = new Date();
+        var systemTime = date.timeNow();
+        $('.currentTime').text( systemTime );
+
+        var copyrightYear = date.getFullYear();
+        $('.year').text( copyrightYear );
+
+        var nbeUrl = "../nberesources/";
+        $.get(nbeUrl).error(function () {
+            console.log("error loading: " + nbeUrl);
+        }).success(function() {
+           // $('span.numberOfMerchants').text("10000");
+            $('.nbe').removeClass('offline');
+            $('.nbeDownHint').addClass('hide');
+            $('.nbe').addClass('online');
+            $('.nbe').attr('title', 'UP');
+            $('.nbeHint').removeClass('hide');
+        });
+
+        var dcospIshaltedURL = "../dcospresources/service/distributiontrigger/ishalted";
+        $.get(dcospIshaltedURL).error(function () {
+            console.log("error loading: " + dcospIshaltedURL);
+        }).success(function(data) {
+            if(""+data == "false") {
+                $('.dc-osp').removeClass('offline');
+                $('.ospHint').removeClass('hide');
+                $('.ospDownHint').addClass('hide');
+                $('.dc-osp').addClass('online');
+                $('.dc-osp').attr('title', 'UP');
+            } else {
+                $('.dc-osp').attr('title', 'ishalted='+ data);
+            }
+            console.log("success load " + dcospIshaltedURL + " retrieved value ["+data+"]");
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="app-title">Content &amp; Asset Management System</div>
+            <a class="brand" href="#"></a>
+
+            <div class="btn-disconnect">
+                <div class="btn-group">
+                    <a class="btn" href="../logout" title="Disconnect"><em class="icon-off"></em></a>
+                </div>
+            </div>
+            <div class="btn-chg-app">
+                <li class="dropdown">
+                    <a class="dropdown-toggle">
+                        <em class="icon-list-app"></em>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="">
+                                <em class="logo-kms"></em><br />
+                                <span>KMS</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <em class="logo-geo"></em><br />
+                                <span>Geo</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <em class="logo-content"></em><br />
+                                <span>Content</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <em class="logo-yp"></em><br />
+                                <span>YP.ca</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="container alert alert-info" id="messagePanel" style="display: none;">
+        <span id="message"></span>
+    </div>
+
+    <div ng-controller="MonitoringCtrl">
+        <div ng-repeat="stat in status" class="container alert alert-error messagePanel">
+            <span class="message">{{stat.name}} is having some issue. For more information <a href="{{stat.url}}" target="_blank">click here</a></span>
+        </div>
+    </div>
+
+    <div class="primary-nav">
+        <!-- TABS -->
+        <ul class="nav nav-pills">
+            <li ng-class="dashboardActive"><a href="#/dashboard">Dashboard</a></li>
+            <li ng-class="[merchantsActive, distributionErrorsActive, syndicationActive, assetInformationActive]"><a href="#/merchants/{{merchantIdSearch}}">Merchant</a></li>
+            <li ng-class="assetsActive"><a href="#/assets">Asset</a></li>
+        </ul>
+        <div class="search-field span4 offset4">
+
+        </div>
+    </div>
+</div>

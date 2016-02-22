@@ -1,0 +1,58 @@
+<div class="row small-section-title" ng-show="currentMerchant.merchantId" style="padding-bottom: 0px;">
+    <h4 class="pull-left">Business hours</h4>
+</div>
+<hr ng-show="currentMerchant.merchantId" style="margin-top: -10px;margin-top: -1px;margin-top: 0px;margin-bottom: 5px;"/>
+
+<accordion-group ng-show="{{contentElement.businessHour.length > 0}}" ng-repeat="contentElement in currentMerchant.content.businessHourContent" is-open="contentElement.$$open" ng-show="contentElement.$$display">
+    <accordion-heading>
+        <div>
+            Week day Opening Hours ({{contentElement.metaData.sourceSystem}})
+            <span ng-show="contentElement.metaData.replacedDate.date" tooltip-html-unsafe="The element have been replaced/removed on {{contentElement.metaData.replacedDate.date}}" tooltip-placement="bottom" >
+                <span class="label label-info">Info</span>
+            </span>
+
+            <a class="accordion-arrow-open {{contentElement.$$open}} pull-right"><span>{{contentElement.$$open}}</span></a>
+        </div>
+    </accordion-heading>
+    <table class="table table-condensed ">
+        <tr  ng-repeat="businessHour in contentElement.businessHour| orderBy:businessHourOrder">
+            <td class="span4">{{businessHourValue[businessHour.dayCode]}}</td>
+            <td class="span2">
+                <span  ng-hide="businessHour.open" class="label label-important">Closed</span>
+                <span  ng-show="businessHour.open" class="label label-success">Open</span>
+                <span tooltip-html-unsafe="Verified By : {{businessHour.verifiedBy}}&lt;br /&gt; Verify Date : {{businessHour.dateLastVerified.date}}" >
+                    <em class="icon-question-sign" ></em>
+                </span>
+            </td>
+            <td class="span3"><span ng-show="businessHour.open"><div ng-bind-html="businessHour.hourFromTo"></div></span></td>
+        </tr>
+    </table>
+    <div more-detail style="margin-top: -15px"></div>
+</accordion-group>
+
+<accordion-group  ng-show="{{contentElement.businessHour.length > 0}}" ng-repeat="contentElement in currentMerchant.content.holidayBusinessHourContent" is-open="contentElement.$$open" ng-show="contentElement.$$display">
+    <accordion-heading>
+        <div>
+            Holiday Opening Hours ({{contentElement.metaData.sourceSystem}})
+            <span ng-show="contentElement.metaData.replacedDate.date" tooltip-html-unsafe="The element have been replaced/removed on {{contentElement.metaData.replacedDate.date}}" tooltip-placement="bottom" >
+                <span class="label label-info">Info</span>
+            </span>
+
+            <a class="accordion-arrow-open {{contentElement.$$open}} pull-right"><span>{{contentElement.$$open}}</span></a>
+        </div>
+    </accordion-heading>
+    <table class="table table-condensed ">
+        <tr  ng-repeat="businessHour in contentElement.businessHour| orderBy:businessHourOrder">
+            <td class="span4">{{businessHourValue[businessHour.dayCode]}}</td>
+            <td class="span2">
+                <span  ng-hide="businessHour.open" class="label label-important">Closed</span>
+                <span  ng-show="businessHour.open" class="label label-success">Open</span>
+                <span tooltip-html-unsafe="Verified By : {{businessHour.verifiedBy}}&lt;br /&gt; Verify Date : {{businessHour.dateLastVerified.date}}" >
+                    <em class="icon-question-sign" ></em>
+                </span>
+            </td>
+            <td class="span3"><span ng-show="businessHour.open">{{businessHour.hourFromTo}}</span></td>
+        </tr>
+    </table>
+    <div more-detail style="margin-top: -15px"></div>
+</accordion-group>

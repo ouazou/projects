@@ -1,0 +1,44 @@
+<div class="row">
+    <!-- The search panel -->
+    <div class="span12">
+        <div class="span3">
+
+        </div>
+        <div class="span6" style="margin-left: 27px;">
+            <div style="left:30%;position:relative;text-align:center;">
+                <form class="navbar-form navbar-search"  ng-submit="submitSearch()">
+                    <input type="text" required name="mid" class="search-query "  placeholder="Enter a directory id and hit enter"  ng-model="directoryIdSearch"/>
+                </form>
+            </div>
+        </div>
+        <div class="span3" style="margin-left: 27px;">
+
+        </div>
+    </div>
+    <div class="span12" ng-show="message">
+        <div class="span3">
+
+        </div>
+        <div class="span6 text-center" style="margin-left: 27px;margin-top: 15px;">
+            <span ng-show="message" style="margin-top: 55px" class="alert alert-info" >{{message}}</span>
+        </div>
+        <div class="span3" style="margin-left: 27px;">
+
+        </div>
+    </div>
+    <div class="span12" style="height: 550px" >
+        <div class="span2">
+            <span>Directory name : {{currentDirectory.Directory.DirectoryName}}</span>
+            <div ng-show="{{area.type === 1}}"ng-repeat="area in currentDirectory.Directory.Areas" class="btn btn-danger area-div-button" ng-click="edit(this)">
+                <a class="close" ng-click="remove(this)">&times;</a>
+            </div>
+            <div ng-show="{{area.type === 2}}"ng-repeat="area in currentDirectory.Directory.Areas" class="btn btn-primary area-div-button" ng-click="edit(this)">
+                <a class="close" ng-click="remove(this)">&times;</a>
+            </div>
+            <div class="btn  right" ng-click="addCircle(this)" style="margin-top: 5px;margin-right: 5px;">
+                <span>Add extra radius</span>
+            </div>
+        </div>
+        <div class="span10"  id="map-canvas"></div>
+    </div>
+</div>

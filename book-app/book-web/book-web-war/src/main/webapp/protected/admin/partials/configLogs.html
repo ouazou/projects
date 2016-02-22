@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="span12">
+        <h2>Set logger level</h2>
+        <form class="form-inline" ng-submit="setRootLoggingConfig()" ng-class="{error : rootLevelError}">
+            <div class="control-group" ng-class="{error : rootLevelError}">
+                <label class="control-label">Root Logging Level</label>
+                <select ng-model="rootLevel">
+                    <option value="DEBUG">DEBUG</option>
+                    <option value="INFO" selected>INFO (recommended)</option>
+                    <option value="WARN">WARN</option>
+                    <option value="ERROR">ERROR</option>
+                    <option value="TRACE">TRACE</option>
+                    <option value="OFF">OFF</option>
+                </select>
+                <button type="submit" class="btn">Go</button>
+                <span class="help-inline">{{rootLevelError}}</span>
+            </div>
+        </form>
+        <form class="form-inline" ng-submit="addLoggingConfig()" >
+            <div class="control-group" ng-class="{error : newLog}">
+                <label class="control-label">Logger Name</label>
+                <input type="text" size="20" value="" ng-model="newLogName">
+                <select ng-model="newLogLevel">
+                    <option value="DEBUG">DEBUG</option>
+                    <option value="INFO" selected>INFO (recommended)</option>
+                    <option value="WARN">WARN</option>
+                    <option value="ERROR">ERROR</option>
+                    <option value="TRACE">TRACE</option>
+                    <option value="OFF">OFF</option>
+                </select>
+                <button type="submit" class="btn">Go</button>
+                <span class="help-inline">{{newLog}}</span>
+            </div>
+        </form>
+    </div>
+    <div class="span12">
+
+        <hr width="100%">
+        <h2>Existing Loggers</h2>
+        <table class="table table-striped table-bordered tablesorter tablesorter-bootstrap" >
+            <thead>
+                <tr class="tablesorter-headerRow">
+                    <th class="tablesorter-header bootstrap-header" 
+                        ng-click="predicate = 'Name';
+                            reverse = !reverse">
+            <div class="tablesorter-wrapper">
+                <div class="tablesorter-header-inner">Logger Name
+                    <em ng-show="predicate !== 'Name'" class="tablesorter-icon tablesorter-icon bootstrap-icon-unsorted"></em>
+                    <em ng-show="predicate === 'Name' && reverse" class="tablesorter-icon tablesorter-icon icon-chevron-down"></em>
+                    <em ng-show="predicate === 'Name' && !reverse" class="tablesorter-icon tablesorter-icon icon-chevron-up"></em>
+                </div>
+            </div>
+            </th>
+            <th class="tablesorter-header bootstrap-header" 
+                ng-click="predicate = 'Level';
+                    reverse = !reverse">
+            <div class="tablesorter-wrapper">
+                <div class="tablesorter-header-inner">Current Level
+
+                    <em ng-show="predicate !== 'Level'" class="tablesorter-icon tablesorter-icon bootstrap-icon-unsorted"></em>
+                    <em ng-show="predicate === 'Level' && reverse" class="tablesorter-icon tablesorter-icon icon-chevron-down"></em>
+                    <em ng-show="predicate === 'Level' && !reverse" class="tablesorter-icon tablesorter-icon icon-chevron-up"></em>
+                </div>
+            </div>
+            </th>
+            </tr>
+            <tr class="tablesorter-filter-row">
+                <td>
+                    <input type="search" class="tablesorter-filter " ng-model="search.Name" />
+                </td>
+                <td>
+                    <select class="tablesorter-filter input-small" ng-model="search.Level">
+                        <option value="">ALL</option>
+                        <option value="DEBUG">DEBUG</option>
+                        <option value="INFO">INFO</option>
+                        <option value="WARN">WARN</option>
+                        <option value="ERROR">ERROR</option>
+                        <option value="TRACE">TRACE</option>
+                        <option value="OFF" selected="">OFF</option>
+                    </select>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+                <tr class="row-log" ng-repeat="log in logs| orderBy:predicate:reverse | filter:search:strict">
+                    <td>{{log.Name}}</td>
+                    <td>
+                        <form>
+                            <select ng-model="log.Level" ng-change="changeLog(log)" class="input-small">
+                                <option value="DEBUG">DEBUG</option>
+                                <option value="INFO">INFO</option>
+                                <option value="WARN">WARN</option>
+                                <option value="ERROR">ERROR</option>
+                                <option value="TRACE">TRACE</option>
+                                <option value="OFF" selected="">OFF</option>
+                            </select>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

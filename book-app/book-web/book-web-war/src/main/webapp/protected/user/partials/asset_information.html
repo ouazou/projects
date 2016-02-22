@@ -1,0 +1,112 @@
+<div search-panel></div>
+<div class="row">
+    <!-- Data panel -->
+    <div class="span12"  ng-show="loading">
+        <br />
+        <progressbar max="max" value="dynamic" class="progress progress-info progress-striped active"><span style="color:black; white-space:nowrap;text-"><b>{{loadingMessage}}</b></span></progressbar>
+    </div>
+
+    <div class="span12 center message" ng-show="currentMerchant.property.status === 'MERGED'">
+        <span class="alert alert-info" >The merchant you are looking for have been merge to <a href="#/merchants/{{currentMerchant.property.survivorMerchantId}}">{{currentMerchant.property.survivorMerchantId}}</a></span>
+    </div>
+
+    <div ng-show="currentMerchant.property.status !== 'MERGED' && !loading">
+        <div class="center message" ng-show="message.asset">
+            <span ng-show="message" class="alert alert-info" >{{message.asset}}</span>
+        </div>
+
+        <accordion close-others="false">
+        <div class="span12 form-horizontal">
+            <accordion-group is-open="asset.$$open" ng-repeat="asset in currentMerchant.asset">
+                <accordion-heading>
+                    <div>
+                        <span class="make-bold {{asset.$$open}}">
+                            <span title="UDAC">{{asset.udac}}</span> |
+                            <span title="Effective Date">{{asset.effectiveDate | date: 'yyyy-MM-dd'}} | </span>
+                            <span title="Expiration Date" ng-show="asset.expirationDate">{{asset.expirationDate | date: 'yyyy-MM-dd'}} | </span>
+                            <span title="Expiration Date" ng-show="!asset.expirationDate">For ever | </span>
+                            <span title="State">{{asset.state}} </span> |
+                            <span title="Directory" ng-show="asset.$$directoryName">{{asset.$$directoryName}} | </span>
+                            <span title="Directory" ng-show="!asset.$$directoryName">{{asset.directoryCode}} | </span>
+                            <span title="Heading" ng-show="asset.$$headingName">{{asset.$$headingName}} | </span>
+                            <span title="Heading" ng-show="!asset.$$headingName">{{asset.headingCode}} | </span>
+                            <span title="Source System"> ({{asset.sourceSystem}})</span>
+                        </span>
+                        <a class="accordion-arrow-open {{asset.$$open}} pull-right"><span>{{asset.$$open}}</span></a>
+                    </div>
+                </accordion-heading>
+                <table  class="table table-condensed "  style="margin-bottom: 0px;">
+                    <tr>
+                        <td class="span4">Asset Id : </td>
+                        <td class="span4">{{asset.assetId}}</td>
+                    </tr>
+                    <tr>
+                        <td class="span4">Creation Time : </td>
+                        <td class="span4">
+                            {{asset.creationDate}}
+                            <span ng-show="asset.creationDate" tooltip-html-unsafe="Source : {{asset.sourceSystem}} &lt;br /&gt; Source version : {{asset.sourceVersion}}" tooltip-placement="bottom" >
+                                <em class="icon-question-sign" ></em>
+                            </span>
+                            <span ng-show="asset.creationDate" tooltip-html-unsafe="{{asset.updateComment}}" tooltip-placement="bottom" >
+                                <em class="icon-comment" ></em>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="span4">Client Number : </td>
+                        <td class="span4">{{asset.clientNo}}</td>
+                    </tr>
+                    <tr>
+                        <td class="span4">Contract Number : </td>
+                        <td class="span4">{{asset.contractNo}}</td>
+                    </tr>
+                    <tr>
+                        <td class="span4">Product Line Id : </td>
+                        <td class="span4">{{asset.productLineId}}</td>
+                    </tr>
+                </table>
+                <table class="table table-condensed "  style="margin-bottom: 0px;">
+                    <tr ng-repeat="prop in asset.assetProperty| orderBy : 'name' : false">
+                        <td class="span4">{{prop.name}}</td>
+                        <td class="span4">{{prop.value}}</td>
+                    </tr>
+                </table>
+            </accordion-group>
+        </div>
+        </accordion>
+    </div>
+
+</div>
+
+
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+    <h3>Please confirm your change</h3>
+    </div>
+    <div class="modal-body control-group" ng-class="{error : $$errorMessage}">
+    <div class="controls">
+    <input type="text" ng-model="selected.comment" placeholder="Please enter a comment" />
+
+    <span class="help-inline">{{$$errorMessage}}</span>
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">Validate</button>
+    <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
+
+<script type="text/ng-template" id="loadingModal.html">
+    <div class="modal-header">
+    <h3 class="modal-title">Loading merchant {{merchantId}}</h3>
+    </div>
+    <div class="modal-body">
+    <ul>
+    <li ng-repeat="item in items">
+    <a ng-click="selected.item = item">{{ currentMerchant.merchantId }}</a>
+    </li>
+    </ul>
+    Selected: <b>{{ selected.item }}</b>
+    </div>
+</script>

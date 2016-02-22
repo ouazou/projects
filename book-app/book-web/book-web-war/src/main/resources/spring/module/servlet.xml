@@ -1,0 +1,96 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                      http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="camsServiceProxyServlet"
+          class="com.ypg.cams.ui.servlet.ServiceProxyServlet">
+        <property name="serviceScheme" value="${cams.service.scheme}"/>
+        <property name="serviceHost" value="${cams.service.host}" />
+        <property name="servicePort" value="${cams.service.port}" />
+        <property name="serviceContext" value="${cams.service.context}" />
+        <property name="authorizationSystem" value="${cams.authorization.system}" />
+        <property name="authorizationPassword" value="${cams.authorization.password}" />
+        <property name="authorizationWithUser" value="${cams.authorization.with.user}" />
+        <property name="doForwardIP" value="${cams.forward.ip}" />
+    </bean>
+
+    <bean id="cadsServiceProxyServlet"
+          class="com.ypg.cams.ui.servlet.ServiceProxyServlet">
+        <property name="serviceScheme" value="${cads.service.scheme}"/>
+        <property name="serviceHost" value="${cads.service.host}" />
+        <property name="servicePort" value="${cads.service.port}" />
+        <property name="serviceContext" value="${cads.service.context}" />
+        <property name="authorizationSystem" value="${cads.authorization.system}" />
+        <property name="authorizationPassword" value="${cads.authorization.password}" />
+        <property name="authorizationWithUser" value="${cads.authorization.with.user}" />
+        <property name="doForwardIP" value="${cams.forward.ip}" />
+    </bean>
+
+    <bean id="dcublServiceProxyServlet"
+          class="com.ypg.cams.ui.servlet.ServiceProxyServlet">
+        <property name="serviceScheme" value="${dcubl.service.scheme}"/>
+        <property name="serviceHost" value="${dcubl.service.host}" />
+        <property name="servicePort" value="${dcubl.service.port}" />
+        <property name="serviceContext" value="${dcubl.service.context}" />
+        <property name="authorizationSystem" value="${dcubl.authorization.system}" />
+        <property name="authorizationPassword" value="${dcubl.authorization.password}" />
+        <property name="authorizationWithUser" value="${dcubl.authorization.with.user}" />
+        <property name="doForwardIP" value="${cams.forward.ip}" />
+    </bean>
+
+    <bean id="dcospServiceProxyServlet"
+          class="com.ypg.cams.ui.servlet.ServiceProxyServlet">
+        <property name="serviceScheme" value="${dcosp.service.scheme}"/>
+        <property name="serviceHost" value="${dcosp.service.host}" />
+        <property name="servicePort" value="${dcosp.service.port}" />
+        <property name="serviceContext" value="${dcosp.service.context}" />
+        <property name="authorizationSystem" value="${dcosp.authorization.system}" />
+        <property name="authorizationPassword" value="${dcosp.authorization.password}" />
+        <property name="authorizationWithUser" value="${dcosp.authorization.with.user}" />
+        <property name="doForwardIP" value="${cams.forward.ip}" />
+    </bean>
+
+    <bean id="nbeServiceProxyServlet"
+          class="com.ypg.cams.ui.servlet.ServiceProxyServlet">
+        <property name="serviceScheme" value="${nbe.service.scheme}"/>
+        <property name="serviceHost" value="${nbe.service.host}" />
+        <property name="servicePort" value="${nbe.service.port}" />
+        <property name="serviceContext" value="${nbe.service.context}" />
+        <property name="authorizationSystem" value="${nbe.authorization.system}" />
+        <property name="authorizationPassword" value="${nbe.authorization.password}" />
+        <property name="authorizationWithUser" value="${nbe.authorization.with.user}" />
+        <property name="doForwardIP" value="${cams.forward.ip}" />
+    </bean>
+
+    <bean id="kmsDataServlet"
+          class="com.ypg.cams.ui.servlet.KMSDataServlet">
+        <property name="headingFile" value="classpath:heading.csv"/>
+        <property name="directoryFile" value="classpath:directory.csv" />
+        <property name="jsonmapper">
+            <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+                <property name="simpleDateFormat" value="yyyy-MM-dd'T'HH:mm:ss'Z'"/>
+                <property name="annotationIntrospector">
+                    <bean class="com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector"/>
+                </property>
+                <property name="serializationInclusion" value="NON_EMPTY"/>
+                <property name="featuresToDisable">
+                    <array>
+                        <util:constant static-field="com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS"/>
+                        <util:constant static-field="com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS"/>
+                        <util:constant static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES"/>
+                    </array>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="userContextServlet"
+          class="com.ypg.cams.ui.servlet.UserContextServlet">
+        <property name="writeGroup" value="${cams.ui.write.group}"/>
+        <property name="readGroup" value="${cams.ui.read.group}" />
+        <property name="adminGroup" value="${cams.ui.admin.group}" />
+    </bean>
+
+</beans>

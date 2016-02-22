@@ -1,0 +1,40 @@
+<div class="row small-section-title" ng-show="currentMerchant.merchantId" style="padding-bottom: 0px;">
+    <h4 class="pull-left">Emails</h4>
+</div>
+<hr ng-show="currentMerchant.merchantId" style="margin-top: -10;margin-top: -1;margin-top: 0px;margin-bottom: 5px;"/>
+
+<accordion-group ng-repeat="contentElement in currentMerchant.content.emailContent" is-open="contentElement.$$open" ng-show="contentElement.$$display">
+    <accordion-heading>
+        <div>
+            Emails ({{contentElement.metaData.sourceSystem}})
+            <span ng-show="contentElement.metaData.replacedDate.date" tooltip-html-unsafe="The element have been replaced/removed on {{contentElement.metaData.replacedDate.date}}" tooltip-placement="bottom" >
+                <span class="label label-info">Info</span>
+            </span>
+
+            <a class="accordion-arrow-open {{contentElement.$$open}} pull-right"><span>{{contentElement.$$open}}</span></a>
+        </div>
+    </accordion-heading>
+
+    <div ng-repeat="email in contentElement.email">
+        <hr ng-show="$index !== 0" style="margin-top: -10px;margin-top: -1px;margin-top: 0px;margin-bottom: 5px;"/>
+        <table  class="table table-condensed "  style="margin-bottom: 0px;">
+            <tr>
+                <td>Email Type : </td>
+                <td>
+                    {{email.emailType| emailType}}
+                    <span tooltip-html-unsafe="Verified By : {{email.verifiedBy}}&lt;br /&gt; Verify Date : {{email.dateLastVerified.date}}" >
+                        <em class="icon-question-sign" ></em>
+                    </span>
+                </td>
+            </tr>
+            <tr ng-repeat="emailLocalized in email.emailLocalized">
+                <td>
+                    <span ng-show="{{emailLocalized.languageCode === 'FR'}}">French</span>
+                    <span ng-show="{{emailLocalized.languageCode === 'EN'}}">English</span>
+                </td>
+                <td>{{emailLocalized.value}}</td>
+            </tr>
+        </table>
+    </div>
+    <div more-detail></div>
+</accordion-group>

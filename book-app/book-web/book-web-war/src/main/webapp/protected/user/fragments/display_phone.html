@@ -1,0 +1,41 @@
+<div class="row small-section-title" ng-show="currentMerchant.merchantId" style="padding-bottom: 0px;">
+    <h4 class="pull-left">Phones</h4>
+</div>
+<hr ng-show="currentMerchant.merchantId" style="margin-top: -10;margin-top: -1;margin-top: 0px;margin-bottom: 5px;"/>
+
+<accordion-group ng-repeat="contentElement in currentMerchant.content.phoneContent" is-open="contentElement.$$open" ng-show="contentElement.$$display">
+    <accordion-heading>
+        <div>
+            <span ng-show="{{contentElement.phone.length > 1}}">Phones ({{contentElement.metaData.sourceSystem}})</span>
+            <span ng-show="{{contentElement.phone.length === 1}}">{{phoneTypeValue[contentElement.phone[0].phoneType]}} ({{contentElement.metaData.sourceSystem}})</span>
+            <span ng-show="contentElement.metaData.replacedDate.date" tooltip-html-unsafe="The element have been replaced/removed on {{contentElement.metaData.replacedDate.date}}" tooltip-placement="bottom" >
+                <span class="label label-info">Info</span>
+            </span>
+
+            <a class="accordion-arrow-open {{contentElement.$$open}} pull-right"><span>{{contentElement.$$open}}</span></a>
+        </div>
+    </accordion-heading>
+
+
+    <div ng-repeat="phone in contentElement.phone">
+        <hr ng-show="$index !== 0" style="margin-top: -10px;margin-top: -1px;margin-top: 0px;margin-bottom: 5px;"/>
+        <table  class="table table-condensed "  style="margin-bottom: 0px;">
+            <tr>
+                <td class="span3">Confidentiality : </td>
+                <td>
+                    <span ng-hide="phone.phoneConfidentiality" class="label label-success">No</span>
+                    <span ng-show="phone.phoneConfidentiality" class="label label-important">Yes</span>
+                    <span tooltip-html-unsafe="Verified By : {{phone.verifiedBy}}&lt;br /&gt; Verify Date : {{phone.dateLastVerified.date}}" >
+                        <em class="icon-question-sign" ></em>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td ng-show="{{contentElement.phone.length === 1}}" >Phone number : </td>
+                <td ng-show="{{contentElement.phone.length !== 1}}" >{{phoneTypeValue[phone.phoneType]}} : </td>
+                <td>{{phone.phoneNumber| tel}}</td>
+            </tr>
+        </table>
+    </div>
+    <div more-detail></div>
+</accordion-group>

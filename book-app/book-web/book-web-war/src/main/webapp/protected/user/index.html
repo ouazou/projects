@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--<html ng-app="camsApp" >-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+        <title>CAMS · Administration</title>
+        <meta name="description" content="This is the admistation admistration application for YPG Content and Assets Management Service" />
+        <meta name="author" content="Mickael Dubois @ ypg" />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+        <!-- Styles -->
+
+        <link href="../../css/cams.css" rel="stylesheet" />
+        <link rel="SHORTCUT ICON" type="image/x-icon" href="../../ico/favicon.ico" />
+        <link rel="icon" type="image/png" href="../../ico/favicon.png" />
+    </head>
+
+    <body ng-controller="AppCtrl" ng-init="count = 0" >
+        <div ng-include src="header"></div>
+
+        <div class="container">
+            <!-- TABS -->
+
+            <!--
+            <ul ng-hide="assetsActive || dashboardActive" class="nav nav-tabs">
+                <li ng-class="distributionErrorsActive"><a href="#/distribution_errors/{{merchantIdSearch}}">Distribution Errors</a></li>
+                <li ng-class="syndicationActive"><a href="#/syndication/{{merchantIdSearch}}">Syndication</a></li>
+                <li ng-class="merchantsActive"><a href="#/merchants/{{merchantIdSearch}}">Content</a></li>
+                <li ng-class="assetInformationActive"><a href="#/asset_information/{{merchantIdSearch}}">Assets</a></li>
+                <!--<li ng-class="directoriesActive"><a href="#/directories/">Directory</a></li>-->
+
+
+            <!-- The search panel
+            <div>
+                <div ng-show="distributionErrorsActive || syndicationActive || merchantsActive || assetInformationActive" class="pull-right search-field-adjustment">
+                    <input type="text" name="mid" class="input-medium search-query"  placeholder="Enter a merchant id and hit enter"  ng-model="merchantIdSearch" ng-enter="init()" ng-change="validate_mid()" autofocus />
+                    <button type="submit" class="btn" ng-click="init()">Search</button>
+                </div>
+            </div>
+ -->
+            <div ng-view></div>
+
+
+            <hr />
+            <img id="chuckNorris" ng-show="count > 10" >
+            <footer >
+                <p>© {{copyrightYear}} <span ng-click="count = count + 1" >Yellow Pages Digital </span> & Media Solutions Limited All Rights Reserved (<span id="appVersion"></span> <span id="arrow">-></span> <span id="contractVersion"></span>)</p>
+            </footer>
+
+        </div>
+        <script src="../../js/lib/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-route.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
+        <script src="../../js/lib/angular-resource.js"></script>
+        <script src="../../js/lib/bootstrap.min.js"></script>
+        <script src="../../js/lib/bootstrap-typeahead.js"></script>
+        <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.8.0.js"></script>
+        <script src="../../js/lib/moment.min.js"></script>
+        <script src="../../js/factories/factories.js"></script>
+        <script src="../../js/controller/directoriesCtrl.js"></script>
+        <script src="../../js/ypg/content.js"></script>
+        <script src="../../js/controller/merchantPropertyCtrl.js"></script>
+        <script src="../../js/controller/assetsCtrl.js"></script>
+        <script src="../../js/controller/dashboardCtrl.js"></script>
+        <script src="../../js/controller/distributionErrorsCtrl.js"></script>
+        <script src="../../js/controller/syndicationCtrl.js"></script>
+        <script src="../../js/controller/merchantsCtrl.js"></script>
+        <script src="../../js/controller/assetInformationCtrl.js"></script>
+        <script src="../../js/controller/monitoringCtrl.js"></script>
+        <script src="../../js/app.js"></script>
+
+        <script type="text/ng-template" id="reloadModal">
+            <div class="modal-header">
+            <h3>Your view is out of date</h3>
+            </div>
+            <div class="modal-body controls">
+            <span class="help-inline">The information's you are actually watching have been
+            updated by another user or system.
+            <br />
+            <br />
+            <b>We recommad you to refresh your view otherwise you might corrupt data's</b>
+            <br />
+            </span>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">Reload page (recommendate)</button>
+            <a ng-click="cancel()" style="cursor: pointe;font-size: 11px;">Dismiss</a>
+            </div>
+        </script>
+        <script>
+                            //Set the version to the bottom page
+                            $.get("/cams-ui/properties?property=cams.ui.version", function (data) {
+                                $('#appVersion').html($(data).find("property").text());
+//                                $('#chuckNorris').attr('src', '../../img/Chuck-Norris.jpg');
+                            });
+                            $.get("/cams-ui/properties?property=car.contracts.version", function (data) {
+                                var contractVersion = $(data).find("property").text();
+
+                                if (contractVersion !== "null") {
+                                    $('#contractVersion').html(contractVersion);
+                                } else {
+                                    $('#contractVersion, #arrow').hide();
+                                }
+                            });
+
+        </script>
+    </body>
+</html>
