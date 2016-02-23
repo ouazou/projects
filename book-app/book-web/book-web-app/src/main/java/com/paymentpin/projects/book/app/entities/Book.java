@@ -1,4 +1,4 @@
-package com.paymentpin.projects.book.app.entite;
+package com.paymentpin.projects.book.app.entities;
 import javax.persistence.*;
 
 /**
@@ -6,21 +6,26 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "books")
-public final class Book {
+public  class Book {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long bookId;
+
+    @Column(nullable = false,length = 250)
+    private String title;
     @Column(nullable = false,length = 100)
     private String author;
     @Column(nullable = false,length = 100)
     private String genre;
-    @Column(nullable = false,length = 250)
-    private String title;
     private int pages;
     private int pubYear;
     private int rating;
 
-    public Book(Long bookId, String author, String genre, int pages, int pubYear, int rating) {
-        this.bookId = bookId;
+    public Book() {
+        this.author = author;
+    }
+
+    public Book(String title, String author, String genre, int pages, int pubYear, int rating) {
+        this.title = title;
         this.author = author;
         this.genre = genre;
         this.pages = pages;

@@ -28,6 +28,7 @@
         <h2.version>1.4.185</h2.version>
         <HikariCP.version>2.2.5</HikariCP.version>
         <hibernate-entitymanager.version>4.3.8.Final</hibernate-entitymanager.version>
+        <junit.version>4.11</junit.version>
     </properties>
 
     <dependencyManagement>
@@ -69,6 +70,13 @@
                 <version>${hibernate-entitymanager.version}</version>
             </dependency>
 
+            <!-- Unit testing (JUNIT) -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
 
         </dependencies>
 
