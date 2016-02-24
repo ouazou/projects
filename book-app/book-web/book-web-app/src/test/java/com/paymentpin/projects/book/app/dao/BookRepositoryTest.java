@@ -1,10 +1,13 @@
 package com.paymentpin.projects.book.app.dao;
 
 import com.paymentpin.projects.book.app.entities.Book;
+import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 /**
  * Created by ZOuarab1 on 2/23/2016.
@@ -22,6 +25,8 @@ public class BookRepositoryTest {
 
         Book book=new Book("title", "author", "genre", 250, 2016,3);
         repository.save(book);
+        List<Book> book2fetch=repository.findByTitle("title");
+        Assert.assertEquals(1,book2fetch.size());
 
     }
 

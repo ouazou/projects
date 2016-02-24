@@ -23,7 +23,15 @@
                 <property name="database" value="H2" />
             </bean>
         </property>
-        <property name="persistenceUnitName" value="bookPersistUnit" />
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
+            </props>
+        </property>
+        <property name="persistenceUnitName" value="bookPersistUnitTest" />
     </bean>
 
 
@@ -31,7 +39,7 @@
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.h2.Driver" />
-        <property name="url" value="jdbc:h2:mem:test" />
+        <property name="url" value="jdbc:h2:mem:test;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1" />
         <property name="username" value="sa" />
         <property name="password" value="" />
     </bean>

@@ -21,10 +21,7 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
         </dependency>
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-        </dependency>
+
         <!-- Database (H2) -->
         <dependency>
             <groupId>com.h2database</groupId>
