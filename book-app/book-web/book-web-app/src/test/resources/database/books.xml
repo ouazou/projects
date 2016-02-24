@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <books bookId ="001" title ="Recontre du troisieme type" author = "steven spielberg" genre =  "science fiction" pages = "1000" pubYear = "2000" rating = "4"/>
+</dataset>

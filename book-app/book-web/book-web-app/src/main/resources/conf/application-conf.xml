@@ -35,6 +35,15 @@
     </bean>
 
 
+    <bean id="dbUnitDatabaseConfig" class="com.github.springtestdbunit.bean.DatabaseConigBean">
+        <property name="qualifiedTableNames" value="true"/>
+    </bean>
+
+    <bean id="dbUnitDatabaseConnection" class="com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="databaseConfig" ref="dbUnitDatabaseConfig"/>
+    </bean>
+
 
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
