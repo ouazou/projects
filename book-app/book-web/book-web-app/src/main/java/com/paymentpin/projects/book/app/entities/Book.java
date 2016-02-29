@@ -25,12 +25,12 @@ public  class Book {
     }
 
     public Book(String title, String author, String genre, int pages, int pubYear, int rating) {
-        this.title = title;
-        this.author = author;
-        this.genre = genre;
-        this.pages = pages;
-        this.pubYear = pubYear;
-        this.rating = rating;
+        this.title      = title;
+        this.author     = author;
+        this.genre      = genre;
+        this.pages      = pages;
+        this.pubYear    = pubYear;
+        this.rating     = rating;
     }
 
     public Long getBookId() {

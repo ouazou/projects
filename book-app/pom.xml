@@ -21,8 +21,8 @@
     <properties>
         <spring-context.version>4.2.4.RELEASE</spring-context.version>
         <jetty-maven-plugin.version>9.2.11.v20150529</jetty-maven-plugin.version>
-
         <spring-data-jpa.version>1.9.2.RELEASE</spring-data-jpa.version>
+        <spring.batch.version>3.0.6.RELEASE</spring.batch.version>
         <persistence-api.version>1.0.2</persistence-api.version>
         <platform-bom.version>1.1.2.RELEASE</platform-bom.version>
         <h2.version>1.4.185</h2.version>
@@ -44,11 +44,26 @@
                 <artifactId>spring-data-jpa</artifactId>
                 <version>${spring-data-jpa.version}</version>
             </dependency>
+
+            <!-- Spring Batch dependencies -->
+            <dependency>
+                <groupId>org.springframework.batch</groupId>
+                <artifactId>spring-batch-core</artifactId>
+                <version>${spring.batch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.batch</groupId>
+                <artifactId>spring-batch-infrastructure</artifactId>
+                <version>${spring.batch.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>javax.persistence</groupId>
                 <artifactId>persistence-api</artifactId>
                 <version>${persistence-api.version}</version>
             </dependency>
+
+
             <!-- Database (H2) -->
             <dependency>
                 <groupId>com.h2database</groupId>
@@ -87,6 +102,15 @@
 
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.5.1</version>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                    </configuration>
+                </plugin>
 
                 <plugin>
                     <groupId>org.eclipse.jetty</groupId>
