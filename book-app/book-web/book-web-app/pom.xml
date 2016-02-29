@@ -11,7 +11,6 @@
 
     <artifactId>book-web-app</artifactId>
 
-
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -79,5 +78,46 @@
         </dependency>
 
     </dependencies>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-xjc-plugin</artifactId>
+                <configuration>
+                    <extensions>
+                        <extension>org.apache.cxf.xjcplugins:cxf-xjc-dv:${cxf-xjc-plugin.version}</extension>
+                    </extensions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>xsdtojava</goal>
+                        </goals>
+                        <configuration>
+                            <sourceRoot>${basedir}/target/generated-sources/src/main/java</sourceRoot>
+                            <xsdOptions>
+                                <xsdOption>
+                                    <xsd>src/main/resources/contract/contract.xsd</xsd>
+                                    <extension>true</extension>
+                                    <extensionArgs>
+                                        <arg>-XJsr303Annotations</arg>
+                                        <arg>-Xfluent-api</arg>
+                                        <arg>-Xvalue-constructor</arg>
+                                    </extensionArgs>
+                                    <packagename>com.paymentpin.service.contract</packagename>
+                                </xsdOption>
+                            </xsdOptions>
+                            <extensions>
+                                <extension>com.github.krasa:krasa-jaxb-tools:1.1</extension>
+                                <extension>net.java.dev.jaxb2-commons:jaxb-fluent-api:2.1.8</extension>
+                                <extension>com.massfords:jaxb-visitor:2.0</extension>
+                            </extensions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

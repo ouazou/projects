@@ -29,6 +29,7 @@
         <HikariCP.version>2.2.5</HikariCP.version>
         <hibernate-entitymanager.version>4.3.8.Final</hibernate-entitymanager.version>
         <junit.version>4.11</junit.version>
+        <cxf-xjc-plugin.version>3.0.5</cxf-xjc-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -116,6 +117,12 @@
                     <groupId>org.eclipse.jetty</groupId>
                     <artifactId>jetty-maven-plugin</artifactId>
                     <version>${jetty-maven-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-xjc-plugin</artifactId>
+                    <version>${cxf-xjc-plugin.version}</version>
                 </plugin>
 
 
