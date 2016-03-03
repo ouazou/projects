@@ -16,12 +16,12 @@
     <xs:complexType name="BookType">
         <xs:sequence>
             <xs:element name="bookId" type="xs:long"/>
-            <xs:element name="title  " type="xs:string"/>
-            <xs:element name="author " type="xs:string"/>
-            <xs:element name="genre  " type="xs:string"/>
-            <xs:element name="pages  " type="xs:int"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="author" type="xs:string"/>
+            <xs:element name="genre" type="xs:string"/>
+            <xs:element name="pages" type="xs:int"/>
             <xs:element name="pubYear" type="xs:int"/>
-            <xs:element name="rating ">
+            <xs:element name="rating">
                 <xs:simpleType>
                     <xs:restriction base="xs:int">
                         <xs:minInclusive value="1"/>

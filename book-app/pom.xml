@@ -29,12 +29,21 @@
         <HikariCP.version>2.2.5</HikariCP.version>
         <hibernate-entitymanager.version>4.3.8.Final</hibernate-entitymanager.version>
         <junit.version>4.11</junit.version>
-        <cxf-xjc-plugin.version>3.0.5</cxf-xjc-plugin.version>
+        <cxf.version>3.0.3</cxf.version>
+        <servlet.version>3.0.1</servlet.version>
+
+
     </properties>
 
     <dependencyManagement>
 
         <dependencies>
+            <dependency>
+                <groupId>com.paymentpin.projects</groupId>
+                <artifactId>book-web-app</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
@@ -86,6 +95,25 @@
                 <version>${hibernate-entitymanager.version}</version>
             </dependency>
 
+
+            <!-- REST Provider (CXF) -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-service-description</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+
+
             <!-- Unit testing (JUNIT) -->
             <dependency>
                 <groupId>junit</groupId>
@@ -122,7 +150,7 @@
                 <plugin>
                     <groupId>org.apache.cxf</groupId>
                     <artifactId>cxf-xjc-plugin</artifactId>
-                    <version>${cxf-xjc-plugin.version}</version>
+                    <version>${cxf.version}</version>
                 </plugin>
 
 

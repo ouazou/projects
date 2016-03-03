@@ -101,19 +101,22 @@
                                 <xsdOption>
                                     <xsd>src/main/resources/contract/contract.xsd</xsd>
                                     <extension>true</extension>
-                                    <extensionArgs>
-                                        <arg>-XJsr303Annotations</arg>
-                                        <arg>-Xfluent-api</arg>
-                                        <arg>-Xvalue-constructor</arg>
-                                    </extensionArgs>
+                                    <!--extensionArgs>
+                                        <extensionArg>-Xannotate</extensionArg>
+                                        <extensionArg>-XJsr303Annotations</extensionArg>
+                                        <extensionArg>-Xfluent-api</extensionArg>
+                                        <extensionArg>-Xvalue-constructor</extensionArg>
+                                    </extensionArgs-->
                                     <packagename>com.paymentpin.service.contract</packagename>
                                 </xsdOption>
                             </xsdOptions>
-                            <extensions>
+                            <!--extensions>
                                 <extension>com.github.krasa:krasa-jaxb-tools:1.1</extension>
                                 <extension>net.java.dev.jaxb2-commons:jaxb-fluent-api:2.1.8</extension>
                                 <extension>com.massfords:jaxb-visitor:2.0</extension>
-                            </extensions>
+                                <extension>jvnet.jaxb2_commons:jaxb2-value-constructor:3.0</extension>
+                                <extension>org.jvnet.jaxb2_commons:jaxb2-annotate-plugin-project:1.0.2</extension>
+                            </extensions-->
                         </configuration>
                     </execution>
                 </executions>
