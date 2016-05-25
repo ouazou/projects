@@ -1,6 +1,6 @@
 package com.paymentpin.projects.book.rest.api;
 
-import com.paymentpin.service.contract.BookMessage;
+
 import com.sun.istack.internal.NotNull;
 import org.springframework.validation.annotation.Validated;
 
@@ -20,12 +20,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public interface IbooksRestService {
 
-    public BookMessage getBookById(@Valid @NotNull @Min(0) @PathParam("bookId") final Long bookId);
-    public BookMessage getBookByTitle(Long bookId);
-    public BookMessage getBookAll(Long bookId);
-    public void addBook(BookMessage bookMessage);
-    public void updateBook(BookMessage bookMessage);
-    public void  delete(Long bookId);
+
 
 
 

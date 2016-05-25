@@ -3,6 +3,7 @@ package com.paymentpin.projects.book.app.dao;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.paymentpin.projects.book.app.entities.Book;
+import com.paymentpin.projects.book.app.entities.Student;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,6 +32,9 @@ public class BatchTest {
     @Autowired
     BookRepository repository;
     @Autowired
+    StudentRepository strepo;
+
+    @Autowired
     JobLauncher jobLauncher;
     @Autowired
     Job job;
@@ -52,8 +56,29 @@ public class BatchTest {
         }
 
         List<Book> book2fetch=repository.findAll();
+        System.out.println(book2fetch.size());
+        Student student1=new Student("John Bickel-1");
+        Student student2=new Student("John Bickel-2");
+        Student student3=new Student("John Bickel-3");
+        Student student4=new Student("John Bickel-4");
 
-        Assert.assertEquals(7,book2fetch.size());
+
+        student1.getBooks().add(book2fetch.get(0));
+        student2.getBooks().add(book2fetch.get(0));
+        student3.getBooks().add(book2fetch.get(0));
+        student4.getBooks().add(book2fetch.get(0));
+        student1.getBooks().add(book2fetch.get(1));
+        student1.getBooks().add(book2fetch.get(2));
+        strepo.save(student1);
+        strepo.save(student2);
+        strepo.save(student3);
+        strepo.save(student4);
+
+        book2fetch=repository.findAll();
+
+        System.out.println(book2fetch.get(0).getStudents().size());
+
+
 
 
     }
