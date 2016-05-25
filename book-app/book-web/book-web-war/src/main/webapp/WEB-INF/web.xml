@@ -1,223 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee     http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-    <display-name>CMS</display-name>
-    <context-param>
-        <param-name>webAppRootKey</param-name>
-        <param-value>cams-ui</param-value>
-    </context-param>
-    <context-param>
-        <param-name>logbackConfigLocation</param-name>
-        <param-value>classpath:cams-ui-logback.xml</param-value>
-    </context-param>
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring/cams-ui-spring.xml</param-value>
-    </context-param>
-    <listener>
-        <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
-    </listener>
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+    <display-name>Book application</display-name>
+
     <servlet>
-        <servlet-name>WsChatServlet</servlet-name>
-        <servlet-class>com.ypg.cams.ui.websocket.WsChatServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>WsChatServlet</servlet-name>
-        <url-pattern>/wschat/WsChatServlet</url-pattern>
-    </servlet-mapping>
-    <!-- Servlet de lecture de properties -->
-    <servlet>
-        <servlet-name>PropertiesServlet</servlet-name>
-        <servlet-class>com.ypg.car.foundations.web.servlet.PropertiesServlet</servlet-class>
+        <servlet-name>Jersey2Config</servlet-name>
+        <servlet-class>io.swagger.jersey.config.JerseyJaxrsConfig</servlet-class>
         <init-param>
-            <param-name>propertiesBeanName</param-name>
-            <param-value>cmsProperties</param-value>
+            <param-name>api.version</param-name>
+            <param-value>1.0.0</param-value>
         </init-param>
-    </servlet>
-    <!-- Servlet d'affichage des logs -->
-    <servlet>
-        <servlet-name>LogbackServlet</servlet-name>
-        <servlet-class>com.ypg.car.foundations.logback.web.LogbackServlet</servlet-class>
-    </servlet>
-    <!-- Servlet de configuration des logs -->
-    <servlet>
-        <servlet-name>ConfigLogbackServlet</servlet-name>
-        <servlet-class>com.ypg.car.foundations.logback.web.ConfigLogbackServlet</servlet-class>
-    </servlet>
-    <filter>
-        <filter-name>CORSFilter</filter-name>
-        <filter-class>com.ypg.car.foundations.web.filter.CORSFilter</filter-class>
         <init-param>
-            <param-name>allowAllOrigins</param-name>
-            <param-value>true</param-value>
+            <param-name>swagger.api.basepath</param-name>
+            <param-value>http://localhost:8080/api</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>jersey</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>
+                io.swagger.jaxrs.listing,
+                {your.application.packages}
+            </param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <filter>
+        <filter-name>jersey</filter-name>
+        <filter-class>org.glassfish.jersey.servlet.ServletContainer</filter-class>
+        <init-param>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>
+                io.swagger.jaxrs.listing,
+                {your.application.packages}
+            </param-value>
         </init-param>
     </filter>
-    <filter-mapping>
-        <filter-name>CORSFilter</filter-name>
-        <servlet-name>PropertiesServlet</servlet-name>
-        <servlet-name>monitoring</servlet-name>
-    </filter-mapping>
-    <!-- Spring Security -->
-    <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/protected/*</url-pattern>
-        <url-pattern>/camsresources/*</url-pattern>
-        <url-pattern>/cadsresources/*</url-pattern>
-        <url-pattern>/dcublresources/*</url-pattern>
-    </filter-mapping>
-    <!-- Proxy Servlet for cams -->
-    <servlet>
-        <display-name>UserContextServlet</display-name>
-        <servlet-name>userContextServlet</servlet-name>
-        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
-    </servlet>
+
+
     <servlet-mapping>
-        <servlet-name>userContextServlet</servlet-name>
-        <url-pattern>/userRole</url-pattern>
+        <servlet-name>jersey</servlet-name>
+        <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 
-    <!-- KMS Data Servlet -->
-    <servlet>
-        <display-name>KMSDataServlet</display-name>
-        <servlet-name>kmsDataServlet</servlet-name>
-        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>kmsDataServlet</servlet-name>
-        <url-pattern>/kmsdata</url-pattern>
-    </servlet-mapping>
-    <!-- Proxy Servlet for cams -->
-    <servlet>
-        <display-name>ServiceProxyServlet</display-name>
-        <servlet-name>camsServiceProxyServlet</servlet-name>
-        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>camsServiceProxyServlet</servlet-name>
-        <url-pattern>/camsresources/*</url-pattern>
-    </servlet-mapping>
-    <!-- Proxy Servlet for cads -->
-    <servlet>
-        <display-name>ServiceProxyServlet</display-name>
-        <servlet-name>cadsServiceProxyServlet</servlet-name>
-        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>cadsServiceProxyServlet</servlet-name>
-        <url-pattern>/cadsresources/*</url-pattern>
-    </servlet-mapping>
-    <!-- Proxy Servlet for dcubl -->
-    <servlet>
-        <display-name>ServiceProxyServlet</display-name>
-        <servlet-name>dcublServiceProxyServlet</servlet-name>
-        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>dcublServiceProxyServlet</servlet-name>
-        <url-pattern>/dcublresources/*</url-pattern>
-    </servlet-mapping>
-    <!-- Proxy Servlet for dcosp -->
-    <servlet>
-        <display-name>ServiceProxyServlet</display-name>
-        <servlet-name>dcospServiceProxyServlet</servlet-name>
-        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>dcospServiceProxyServlet</servlet-name>
-        <url-pattern>/dcospresources/*</url-pattern>
-    </servlet-mapping>
-    <!-- Proxy Servlet for nbe -->
-    <servlet>
-        <display-name>ServiceProxyServlet</display-name>
-        <servlet-name>nbeServiceProxyServlet</servlet-name>
-        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>nbeServiceProxyServlet</servlet-name>
-        <url-pattern>/nberesources/*</url-pattern>
-    </servlet-mapping>
-    <!-- Servlet de monitoring -->
-    <servlet>
-        <servlet-name>monitoring</servlet-name>
-        <servlet-class>com.ypg.car.monitoring.servlet.MonitoringServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PropertiesServlet</servlet-name>
-        <url-pattern>/properties</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>monitoring</servlet-name>
-        <url-pattern>/monitoring</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LogbackServlet</servlet-name>
-        <url-pattern>/log</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ConfigLogbackServlet</servlet-name>
-        <url-pattern>/configlog</url-pattern>
-    </servlet-mapping>
+    <filter-mapping>
+        <filter-name>jersey</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
     <session-config>
         <session-timeout>60</session-timeout>
     </session-config>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-    <filter>
-        <filter-name>XsltFilter-properties</filter-name>
-        <filter-class>com.ypg.car.foundations.web.filter.XsltFilter</filter-class>
-        <init-param>
-            <param-name>idValues</param-name>
-            <param-value>/xsl/properties.xsl</param-value>
-        </init-param>
-        <init-param>
-            <param-name>img-idValues</param-name>
-            <param-value>/xsl/properties.xsl</param-value>
-        </init-param>
-        <init-param>
-            <param-name>values</param-name>
-            <param-value>/xsl/propertyValues.xsl</param-value>
-        </init-param>
-        <init-param>
-            <param-name>img-values</param-name>
-            <param-value>/xsl/propertyValues.xsl</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>XsltFilter-properties</filter-name>
-        <servlet-name>PropertiesServlet</servlet-name>
-    </filter-mapping>
-    <filter>
-        <filter-name>XsltFilter-monitoring</filter-name>
-        <filter-class>com.ypg.car.foundations.web.filter.XsltFilter</filter-class>
-        <init-param>
-            <param-name>idValues</param-name>
-            <param-value>/xsl/monitoring.xsl</param-value>
-        </init-param>
-        <init-param>
-            <param-name>img-idValues</param-name>
-            <param-value>/xsl/monitoring.xsl</param-value>
-        </init-param>
-        <init-param>
-            <param-name>values</param-name>
-            <param-value>/xsl/monitoringImage.xsl</param-value>
-        </init-param>
-        <init-param>
-            <param-name>img-values</param-name>
-            <param-value>/xsl/monitoringImage.xsl</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>XsltFilter-monitoring</filter-name>
-        <servlet-name>monitoring</servlet-name>
-    </filter-mapping>
-    <error-page>
+       <error-page>
         <error-code>401</error-code>
         <location>/unauthorized.html</location>
     </error-page>
