@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+import javax.persistence.EntityManagerFactory;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class BookRepositoryTest {
 
     @Autowired
     BookRepository repository;
+
+
+
 
     @org.junit.Test
     public void testFindByTitle() throws Exception {

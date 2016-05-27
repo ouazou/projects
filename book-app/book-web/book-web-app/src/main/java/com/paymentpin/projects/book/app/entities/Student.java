@@ -14,11 +14,14 @@ import java.util.List;
  */
 @Entity
 @Table(name = "students")
+@Proxy(lazy = false)
+@DynamicInsert
 public class Student {
     String name;
     private Long id;
     private List<Book> books;
     private Course course;
+    private Address address;
 
     public Student() {
     }
@@ -38,8 +41,7 @@ public class Student {
         this.id = id;
     }
 
-
-    @ManyToMany(targetEntity = Book.class)
+    @ManyToMany(fetch = FetchType.LAZY,targetEntity = Book.class)
     @JoinTable(
             name = "prets",
             joinColumns = @JoinColumn(
@@ -51,9 +53,7 @@ public class Student {
                     foreignKey = @ForeignKey(name = "FK-PRETS-BOOKS")
             )
     )
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @Fetch(FetchMode.JOIN)
-    @BatchSize(size = 10)
+    @LazyCollection(LazyCollectionOption.TRUE)
     public List<Book> getBooks() {
         if(books==null)
             books=new ArrayList<>();
@@ -64,11 +64,13 @@ public class Student {
         this.books = books;
     }
 
-    @ManyToOne(targetEntity = Course.class)
+    @ManyToOne(targetEntity = Course.class,fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(
             name = "courseId",
             foreignKey = @ForeignKey(name = "FK-COURSE-STUDENT")
     )
+    @Fetch(FetchMode.JOIN)
     public Course getCourse() {
         return course;
     }
@@ -84,6 +86,16 @@ public class Student {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    @Embedded
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override

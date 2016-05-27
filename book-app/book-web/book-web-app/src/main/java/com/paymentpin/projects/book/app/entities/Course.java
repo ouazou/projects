@@ -5,7 +5,9 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -13,11 +15,18 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "courses")
+@Proxy(lazy = false)
 public class Course {
     private Long id;
     private String title;
-    private Collection<Student> students;
+    private Set<Student> students;
 
+    public Course() {
+    }
+
+    public Course(String title) {
+        this.title = title;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,7 +54,9 @@ public class Course {
     @Fetch(FetchMode.JOIN)
     @BatchSize(size =100)
     @Cascade({})
-    public Collection<Student> getStudents() {
+    public Set<Student> getStudents() {
+        if(students==null)
+            students=new HashSet<>();
         return students;
     }
 
@@ -53,4 +64,30 @@ public class Course {
         this.students = students;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Course course = (Course) o;
+
+        if (!id.equals(course.id)) return false;
+        return title.equals(course.title);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + title.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }

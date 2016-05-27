@@ -99,8 +99,7 @@ public class Book {
         this.title = title;
     }
 
-    @ManyToMany(targetEntity =Student.class, mappedBy = "books")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(fetch = FetchType.LAZY,targetEntity =Student.class, mappedBy = "books")
     public List<Student> getStudents() {
         return students;
     }
