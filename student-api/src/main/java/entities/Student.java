@@ -1,8 +1,5 @@
-package com.interfacing.exemple.book.entities;
+package entities;
 
-import org.hibernate.annotations.*;
-
-import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.Table;

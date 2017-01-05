@@ -9,8 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by zouarab on 2017-01-04.
  */
 @XmlRootElement
-@JsonFilter("com.interfacing.exemple.book.model.BookModel")
-public class BookModel {
+@JsonFilter("com.interfacing.exemple.book.model.BookResource")
+public class BookResource {
     @NotNull
     private Long bookId;
     @NotNull

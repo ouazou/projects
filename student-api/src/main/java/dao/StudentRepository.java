@@ -1,4 +1,4 @@
-package com.interfacing.exemple.book.dao;
+package dao;
 
 import com.interfacing.exemple.book.entities.Student;
 import org.springframework.data.repository.CrudRepository;

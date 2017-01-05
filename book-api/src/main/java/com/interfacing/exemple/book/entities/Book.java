@@ -23,7 +23,7 @@ public class Book {
     private int pages;
     private int pubYear;
     private int rating;
-    private List<Student> students;
+    private List<String> students;
 
     public Book() {
         this.author = author;
@@ -97,16 +97,6 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    @ManyToMany(targetEntity =Student.class, mappedBy = "books")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
     }
 
     @Override

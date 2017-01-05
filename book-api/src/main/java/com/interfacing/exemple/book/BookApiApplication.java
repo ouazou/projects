@@ -12,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @ComponentScan
 @Configuration
-@Import(LoadBatchConfig.class)
+//@Import(LoadBatchConfig.class)
 public class BookApiApplication {
 
 	public static void main(String[] args) {

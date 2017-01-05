@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.validation.BindException;
 
+import javax.transaction.Transactional;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.function.Consumer;
@@ -54,14 +55,16 @@ public class LoadBatchConfig {
     @Bean
     public Step step1() throws MalformedURLException {
         return stepBuilderFactory.get("step1")
-                .<Book, Book>chunk(10)
+                .<Book, Book>chunk(10000)
                 .reader(reader())
                 .writer(new ItemWriter<Book>() {
                     @Override
+                    @org.springframework.transaction.annotation.Transactional
                     public void write(List<? extends Book> list) throws Exception {
                         list.stream().forEach(new Consumer<Book>() {
                             @Override
                             public void accept(Book book) {
+                                System.out.println("-- done ! --");
                                 bookRepository.save(book);
                             }
                         });
