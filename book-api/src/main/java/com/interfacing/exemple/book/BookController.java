@@ -7,6 +7,9 @@ import com.interfacing.exemple.book.dao.BookRepository;
 import com.interfacing.exemple.book.entities.Book;
 import com.interfacing.exemple.book.mappers.BookMapper;
 import com.interfacing.exemple.book.model.BookResource;
+import io.swagger.annotations.Api;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
@@ -24,6 +27,7 @@ import java.util.Optional;
  */
 @RestController()
 @Transactional
+@Api(value="Book API")
 public class BookController {
 
     @Autowired
@@ -55,8 +59,9 @@ public class BookController {
                 .addFilter("com.interfacing.exemple.book.model.BookResource", SimpleBeanPropertyFilter
                         .filterOutAllExcept(fields.split(",")));
         mappingJacksonValue.setFilters(filters);
-        System.out.println(mappingJacksonValue.getValue());
-        Page<BookResource> pages=new PageImpl<>((List<BookResource>)mappingJacksonValue.getValue(), pageRequest, entityPage.getTotalElements());
+        List<BookResource> dtos1 =(List<BookResource>)mappingJacksonValue.getValue();
+        System.out.println(ToStringBuilder.reflectionToString(dtos1, ToStringStyle.MULTI_LINE_STYLE));
+        Page<BookResource> pages=new PageImpl<>(dtos, pageRequest, entityPage.getTotalElements());
 
         return pages;
 

@@ -32,7 +32,6 @@
 
     <modules>
         <module>book-api</module>
-        <module>book-ui</module>
         <module>student-api</module>
         <module>courses-api</module>
     </modules>
