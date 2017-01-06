@@ -1,5 +1,8 @@
 package com.interfacing.exemple.book.service;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import com.interfacing.exemple.book.dao.BookRepository;
 import com.interfacing.exemple.book.entities.Book;
 import com.interfacing.exemple.book.mappers.BookMapper;
@@ -9,6 +12,8 @@ import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +25,8 @@ import java.util.List;
 /**
  * Created by zouarab on 2016-12-20.
  */
-@RestController()
+@RestController
+@ExposesResourceFor(BookResource.class)
 @Transactional
 @Api(value = "Book API")
 public class BookController {
@@ -31,7 +37,7 @@ public class BookController {
 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    Page<BookResource> findPerPages
+    Resource<Page<BookResource>> findPerPages
             (
                     @RequestParam(defaultValue = "0") int page,
                     @RequestParam(defaultValue = "10") int size,
@@ -42,7 +48,21 @@ public class BookController {
         Page<Book> entityPage = bookRepository.findAll(pageRequest);
         List<BookResource> dtos = BookMapper.INSTANCE.mapList(entityPage.getContent());
         Page<BookResource> pages = new PageImpl<>(dtos, pageRequest, entityPage.getTotalElements());
-        return pages;
+
+        Resource resource=new Resource<Page<BookResource>>(pages);
+        for (int i = 0; i <pages.getTotalPages() ; i++) {
+            String linkLabel=Integer.toString(i);
+            if (i==0)
+                linkLabel="First";
+            else if(i==pages.getTotalPages()-1)
+                linkLabel="Last";
+
+
+
+            resource.add(linkTo(methodOn(BookController.class).findPerPages(i,size,sort)).withRel(linkLabel));
+        }
+
+        return resource;
 
     }
 
@@ -98,5 +118,22 @@ public class BookController {
 
         return new ResponseEntity<BookResource>(BookMapper.INSTANCE.bookToBookModel(book), HttpStatus.CREATED);
     }
+
+    @RequestMapping(value = "/books/{bookId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<Resource<BookResource>> findByBookId
+            (
+                    @PathVariable( "bookId" )Long booId
+            ) {
+
+        Book book = bookRepository.findOne(booId);
+        BookResource dtos = BookMapper.INSTANCE.bookToBookModel(book);
+        Resource<BookResource> resource=new Resource<>(dtos);
+
+        resource.add(linkTo(methodOn(BookController.class).findByBookId(booId)).withSelfRel());
+        return new ResponseEntity<Resource<BookResource>>(resource,HttpStatus.OK);
+
+    }
+
 
 }

@@ -43,6 +43,14 @@
             <artifactId>spring-boot-starter-batch</artifactId>
         </dependency>
 
+
+            <dependency>
+                <groupId>org.springframework.hateoas</groupId>
+                <artifactId>spring-hateoas</artifactId>
+
+            </dependency>
+
+
         <dependency>
             <groupId>com.github.springtestdbunit</groupId>
             <artifactId>spring-test-dbunit</artifactId>
