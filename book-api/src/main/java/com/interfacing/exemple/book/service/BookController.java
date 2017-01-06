@@ -4,6 +4,7 @@ import com.interfacing.exemple.book.dao.BookRepository;
 import com.interfacing.exemple.book.entities.Book;
 import com.interfacing.exemple.book.mappers.BookMapper;
 import com.interfacing.exemple.book.model.BookResource;
+import com.interfacing.exemple.book.utils.ApiConstant;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,11 +52,11 @@ public class BookController {
 
         if (StringUtils.isNotBlank(sortFields)) {
             List<Sort.Order> sortOrder = new ArrayList<>();
-            for (String sortField : sortFields.split(",")) {
+            for (String sortField : sortFields.split(ApiConstant.FIELD_SEPARATOR)) {
 
-                if (StringUtils.startsWith(sortField, "+")) {
+                if (StringUtils.startsWith(sortField, ApiConstant.SORT_ORDER_DIRECTION_ASC)) {
                     sortOrder.add(new Sort.Order(Sort.Direction.ASC, sortField.substring(1)));
-                } else if (StringUtils.startsWith(sortField, "-")) {
+                } else if (StringUtils.startsWith(sortField, ApiConstant.SORT_ORDER_DIRECTION_DESC)) {
                     sortOrder.add(new Sort.Order(Sort.Direction.DESC, sortField.substring(1)));
                 }
                 ;
