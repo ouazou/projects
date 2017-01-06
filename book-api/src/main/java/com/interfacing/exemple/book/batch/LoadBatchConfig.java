@@ -64,10 +64,11 @@ public class LoadBatchConfig {
                         list.stream().forEach(new Consumer<Book>() {
                             @Override
                             public void accept(Book book) {
-                                System.out.println("-- done ! --");
+
                                 bookRepository.save(book);
                             }
                         });
+                        System.out.println("-- done ! --");
                     }
                 })
                 .build();

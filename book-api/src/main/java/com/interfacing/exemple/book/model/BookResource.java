@@ -1,6 +1,7 @@
 package com.interfacing.exemple.book.model;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.interfacing.exemple.book.utils.ApiConstant;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by zouarab on 2017-01-04.
  */
 @XmlRootElement
-@JsonFilter("com.interfacing.exemple.book.model.BookResource")
+@JsonFilter(ApiConstant.JSON_FILTERS_BOOK_RESOURCE)
 public class BookResource {
     @NotNull
     private Long bookId;
