@@ -41,7 +41,8 @@ public class BookController {
             (
                     @RequestParam(defaultValue = "0") int page,
                     @RequestParam(defaultValue = "10") int size,
-                    @RequestParam(required = false) String sort
+                    @RequestParam(required = false) String sort,
+                    @RequestParam(required = false) String fields
 
             ) {
         Pageable pageRequest = definePageRequest(page, size, sort);
@@ -50,17 +51,28 @@ public class BookController {
         Page<BookResource> pages = new PageImpl<>(dtos, pageRequest, entityPage.getTotalElements());
 
         Resource resource=new Resource<Page<BookResource>>(pages);
-        for (int i = 0; i <pages.getTotalPages() ; i++) {
-            String linkLabel=Integer.toString(i);
-            if (i==0)
-                linkLabel="First";
-            else if(i==pages.getTotalPages()-1)
-                linkLabel="Last";
+        resource.add(linkTo(methodOn(BookController.class).findPerPages(0,size,sort,fields)).withRel("First"));
+        resource.add(linkTo(methodOn(BookController.class).findPerPages(pages.getTotalPages()-1,size,sort,fields)).withRel("Last"));
 
+        int i=page;
+        int loop=5;
+        while (i--!=0 && loop--!=0 ){
 
-
-            resource.add(linkTo(methodOn(BookController.class).findPerPages(i,size,sort)).withRel(linkLabel));
         }
+        for (int j = i; i <page ; i++) {
+            String linkLabel=Integer.toString(i);
+            resource.add(linkTo(methodOn(BookController.class).findPerPages(i,size,sort,fields)).withRel(linkLabel));
+        }
+        i=page;
+        loop=5;
+        while (i++!=pages.getTotalPages()-1 && loop--!=0 ){
+
+        }
+        for (int j = i; i <pages.getTotalPages() ; i++) {
+            String linkLabel=Integer.toString(i);
+            resource.add(linkTo(methodOn(BookController.class).findPerPages(i,size,sort,fields)).withRel(linkLabel));
+        }
+
 
         return resource;
 
